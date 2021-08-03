@@ -1,0 +1,16 @@
+[Unit]
+Description=PI Fan Control Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=pi
+ExecStart=/usr/bin/fancontrol
+WorkingDirectory=/home/pi
+
+[Install]
+WantedBy=multi-user.target
+
