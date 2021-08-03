@@ -89,7 +89,7 @@ void loop()
     delayMilliseconds(STEPDELAY);
 }
 
-int start()
+void start()
 {
     signal(SIGKILL, intHandler);
     signal(SIGINT, intHandler);
@@ -109,17 +109,15 @@ int start()
 
     printf("\nStopping\n");
     cleanup();
-
-    return 0;
 }
 
 void show_config(configuration* config)
 {
     printf("Config loaded from '%s':\n", CONFIG_FILE);
 
-    printf("Fan Pin: %d \n", config->fanPin);
-    printf("Fan ON: %d °C\n", config->fanOn);
-    printf("Fan OFF: %d °C\n", config->fanOff);
+    printf("  Fan Pin: %d \n", config->fanPin);
+    printf("  Fan  ON: %d °C\n", config->fanOn);
+    printf("  Fan OFF: %d °C\n", config->fanOff);
 }
 
 int main(int argc, char* argv[])
@@ -127,15 +125,15 @@ int main(int argc, char* argv[])
     config = read_config(CONFIG_FILE);
     if (config == NULL)
     {
-        printf("Can't load '%s'\n", CONFIG_FILE);
-        return 1;
+        fprintf(stderr, "Can't load '%s'\n", CONFIG_FILE);
+        return EXIT_FAILURE;
     }
 
     show_config(config);
 
-    int ret = start();
+    start();
 
     free_config(config);
 
-    return ret;
+    return EXIT_SUCCESS;
 }

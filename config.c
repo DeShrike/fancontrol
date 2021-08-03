@@ -41,7 +41,6 @@ configuration* read_config(char* filename)
 
     if (ini_parse(filename, handler, config) < 0)
     {
-        printf("Can't load '%s'\n", filename);
         return NULL;
     }
 
