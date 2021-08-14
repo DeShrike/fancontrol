@@ -1,22 +1,25 @@
 CC=gcc
 AR=ar
+LIBS=-lwiringPi
+CFLAGS=-Wall -O3
+OBJ=fancontrol.o ini.o config.o
 
 all: fancontrol
 
 rmbin:
 	rm fancontrol
 
-fancontrol: fancontrol.o ini.o config.o
-	$(CC) -o fancontrol fancontrol.o ini.o config.o -l wiringPi
+fancontrol: $(OBJ)
+	$(CC) -o fancontrol $(OBJ) $(LIBS)
 
 fancontrol.o: fancontrol.c config.h fancontrol.h
-	$(CC) -c -Wall -O3 fancontrol.c
+	$(CC) -c $(CFLAGS) fancontrol.c
 
 config.o: config.c config.h fancontrol.h
-	$(CC) -c -Wall -O3 config.c
+	$(CC) -c $(CFLAGS) config.c
 
 ini.o: ini.c ini.h
-	$(CC) -c -Wall -O3 ini.c
+	$(CC) -c $(CFLAGS) ini.c
 
 clean:
 	rm *.o
