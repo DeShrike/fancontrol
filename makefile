@@ -35,7 +35,7 @@ uninstall: fancontrol fancontrol.service
 	sudo systemctl disable fancontrol
 	sudo rm /usr/bin/fancontrol
 	sudo rm /etc/systemd/system/fancontrol.service
-	sudo rm /etc/shutdownpi.ini
+	sudo rm /etc/fancontrol.ini
 	sudo systemctl daemon-reload
 
 start:
